@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="bg-white border rounded-2xl p-6">
+  <div class="text-xs text-slate-500">{{ listing.route }} · {{ listing.category }}</div>
+  <h1 class="text-3xl font-bold mt-1">{{ listing.title }}</h1>
+  <p class="text-slate-700 mt-3">{{ listing.short_desc }}</p>
+
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
+    <div class="p-4 bg-slate-50 rounded-xl border">
+      <div class="text-xs text-slate-500">Precio</div>
+      <div class="text-xl font-bold">${{ "%.2f"|format(listing.price_usd) }}</div>
+    </div>
+    <div class="p-4 bg-slate-50 rounded-xl border">
+      <div class="text-xs text-slate-500">Duración</div>
+      <div class="text-xl font-bold">{{ listing.duration_min }} min</div>
+    </div>
+    <div class="p-4 bg-slate-50 rounded-xl border">
+      <div class="text-xs text-slate-500">Ubicación</div>
+      <div class="font-semibold">{{ listing.address }}</div>
+    </div>
+  </div>
+
+  {% if listing.tags %}
+  <div class="mt-6 flex gap-2 flex-wrap">
+    {% for t in listing.tags %}
+    <span class="px-3 py-1 rounded-full bg-slate-100 text-slate-700 text-sm border">{{ t }}</span>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  <div class="mt-6 flex gap-2 flex-wrap">
+    <a href="/listings/{{ listing.id }}/book" class="px-4 py-2 rounded-lg bg-slate-900 text-white hover:bg-slate-800">Reservar / Pagar</a>
+    <a href="/listings/{{ listing.id }}/edit" class="px-4 py-2 rounded-lg bg-white border hover:bg-slate-100">Editar</a>
+
+    <form method="post" action="/listings/{{ listing.id }}/delete" onsubmit="return confirm('¿Seguro que lo borras?');">
+      <button class="px-4 py-2 rounded-lg bg-red-600 text-white hover:bg-red-700">Eliminar</button>
+    </form>
+
+    {% if listing.maps_url %}
+    <a target="_blank" href="{{ listing.maps_url }}" class="px-4 py-2 rounded-lg bg-white border hover:bg-slate-100">Ver mapa</a>
+    {% endif %}
+    {% if listing.tiktok_url %}
+    <a target="_blank" href="{{ listing.tiktok_url }}" class="px-4 py-2 rounded-lg bg-white border hover:bg-slate-100">Video (TikTok)</a>
+    {% endif %}
+  </div>
+
+  <div class="mt-8 p-4 rounded-xl border bg-emerald-50">
+    <div class="font-semibold">Narrativa cultural (MVP)</div>
+    <div class="text-slate-700 mt-1">
+      Aquí luego metemos IA: micro-historia del lugar + recomendaciones de respeto cultural + compra local.
+    </div>
+  </div>
+</div>
+{% endblock %}

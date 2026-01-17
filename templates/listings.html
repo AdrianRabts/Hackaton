@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="flex items-start justify-between gap-4 flex-wrap">
+  <div>
+    <h1 class="text-2xl font-bold">Explorar</h1>
+    <p class="text-slate-600">Rutas culturales sostenibles, listas para comprar (sin sufrir).</p>
+  </div>
+
+  <form class="flex gap-2 flex-wrap" method="get" action="/listings">
+    <input name="q" value="{{ q }}" placeholder="Buscar..." class="px-3 py-2 border rounded-lg" />
+    <select name="route" class="px-3 py-2 border rounded-lg">
+      <option value="">Todas las rutas</option>
+      {% for r in routes %}
+      <option value="{{ r }}" {% if r == route %}selected{% endif %}>{{ r }}</option>
+      {% endfor %}
+    </select>
+    <select name="category" class="px-3 py-2 border rounded-lg">
+      <option value="">Todas las categorías</option>
+      {% for c in categories %}
+      <option value="{{ c }}" {% if c == category %}selected{% endif %}>{{ c }}</option>
+      {% endfor %}
+    </select>
+    <button class="px-3 py-2 rounded-lg bg-white border hover:bg-slate-100">Filtrar</button>
+  </form>
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
+  {% for l in listings %}
+  <a href="/listings/{{ l.id }}" class="bg-white border rounded-2xl p-4 hover:shadow-sm transition">
+    <div class="text-xs text-slate-500">{{ l.route }} · {{ l.category }}</div>
+    <div class="mt-1 font-semibold text-lg">{{ l.title }}</div>
+    <div class="mt-2 text-slate-600 text-sm line-clamp-3">{{ l.short_desc }}</div>
+    <div class="mt-4 flex items-center justify-between">
+      <div class="text-sm font-semibold">${{ "%.2f"|format(l.price_usd) }}</div>
+      <div class="text-xs text-slate-500">{{ l.duration_min }} min</div>
+    </div>
+  </a>
+  {% endfor %}
+</div>
+
+{% if listings|length == 0 %}
+<div class="mt-10 text-slate-600">No hay resultados. O el Ecuador es demasiado épico para tu filtro.</div>
+{% endif %}
+{% endblock %}

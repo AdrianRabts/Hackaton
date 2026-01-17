@@ -1,0 +1,19 @@
+{
+  "listings": [
+    {
+      "id": "l_001",
+      "route": "Cuenca",
+      "category": "historico",
+      "title": "Centro Histórico de Cuenca",
+      "short_desc": "Arquitectura patrimonial, caminata guiada y narrativa cultural.",
+      "price_usd": 12.0,
+      "duration_min": 120,
+      "address": "Cuenca, Azuay",
+      "maps_url": "https://maps.google.com",
+      "contact_whatsapp": "+593999999999",
+      "tiktok_url": "https://tiktok.com",
+      "tags": ["autentico", "familias", "compra_local"]
+    }
+  ],
+  "bookings": []
+}

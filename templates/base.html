@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <title>{{ title if title else "Cultural Routes" }}</title>
+</head>
+<body class="bg-slate-50 text-slate-900">
+  <nav class="bg-white border-b">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+      <a href="/listings" class="font-bold text-lg">Cultural Routes</a>
+      <div class="flex gap-2">
+        <a href="/listings/new" class="px-3 py-2 rounded-lg bg-slate-900 text-white hover:bg-slate-800">Nuevo lugar</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="max-w-6xl mx-auto px-4 py-6">
+    {% block content %}{% endblock %}
+  </main>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+  <div class="bg-white border rounded-2xl p-6">
+    <div class="text-xs text-slate-500">{{ listing.route }} · {{ listing.category }}</div>
+    <h1 class="text-2xl font-bold mt-1">{{ listing.title }}</h1>
+    <p class="text-slate-700 mt-3">{{ listing.short_desc }}</p>
+    <div class="mt-6 p-4 bg-slate-50 rounded-xl border">
+      <div class="text-sm text-slate-600">Total a pagar</div>
+      <div class="text-3xl font-bold">${{ "%.2f"|format(listing.price_usd) }}</div>
+      <div class="text-xs text-slate-500 mt-1">Pago seguro con PayPal</div>
+    </div>
+
+    <div class="mt-6">
+      <label class="text-sm text-slate-600">Nombre</label>
+      <input id="buyer_name" class="w-full px-3 py-2 border rounded-lg" placeholder="Tu nombre" />
+      <label class="text-sm text-slate-600 mt-3 block">Email</label>
+      <input id="buyer_email" class="w-full px-3 py-2 border rounded-lg" placeholder="tu@email.com" />
+    </div>
+  </div>
+
+  <div class="bg-white border rounded-2xl p-6">
+    <h2 class="text-xl font-bold">Pagar para reservar</h2>
+    <p class="text-slate-600 mt-2">Una vez pagado, registramos tu reserva (MVP).</p>
+
+    <div class="mt-6" id="paypal-button-container"></div>
+
+    <div class="mt-4 text-sm" id="pay-status"></div>
+  </div>
+</div>
+
+<script src="https://www.paypal.com/sdk/js?client-id={{ paypal_client_id }}&currency=USD"></script>
+<script>
+  const listingId = "{{ listing.id }}";
+
+  paypal.Buttons({
+    createOrder: async function() {
+      const r = await fetch("/api/paypal/create-order", {
+        method: "POST",
+        headers: {"Content-Type":"application/json"},
+        body: JSON.stringify({ listing_id: listingId })
+      });
+      const data = await r.json();
+      return data.order_id;
+    },
+
+    onApprove: async function(data) {
+      const buyerName = document.getElementById("buyer_name").value || "Guest";
+      const buyerEmail = document.getElementById("buyer_email").value || "guest@example.com";
+
+      const r = await fetch("/api/paypal/capture-order", {
+        method: "POST",
+        headers: {"Content-Type":"application/json"},
+        body: JSON.stringify({
+          listing_id: listingId,
+          order_id: data.orderID,
+          buyer_name: buyerName,
+          buyer_email: buyerEmail
+        })
+      });
+      const res = await r.json();
+      const el = document.getElementById("pay-status");
+
+      if (res.ok) {
+        el.className = "mt-4 text-sm text-emerald-700";
+        el.textContent = "Pago OK. Reserva creada: " + res.booking_id;
+      } else {
+        el.className = "mt-4 text-sm text-red-700";
+        el.textContent = "Pago falló. Estado PayPal: " + res.paypal_status;
+      }
+    }
+  }).render("#paypal-button-container");
+</script>
+{% endblock %}
