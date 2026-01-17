@@ -4,14 +4,39 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Evita el 404 del favicon en dev -->
+  <link rel="icon" href="data:,">
+
   <title>{{ title if title else "Cultural Routes" }}</title>
 </head>
+
 <body class="bg-slate-50 text-slate-900">
-  <nav class="bg-white border-b">
+  <nav class="bg-white border-b sticky top-0 z-50">
     <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
-      <a href="/listings" class="font-bold text-lg">Cultural Routes</a>
-      <div class="flex gap-2">
-        <a href="/listings/new" class="px-3 py-2 rounded-lg bg-slate-900 text-white hover:bg-slate-800">Nuevo lugar</a>
+      <a href="/listings" class="flex items-center gap-2">
+        <div class="w-9 h-9 rounded-xl bg-slate-900 text-white grid place-items-center font-bold">CR</div>
+        <div>
+          <div class="font-bold leading-4">Cultural Routes</div>
+          <div class="text-xs text-slate-500">Itinerarios culturales sostenibles</div>
+        </div>
+      </a>
+
+      <div class="flex items-center gap-2">
+        <a href="/listings"
+           class="px-3 py-2 rounded-lg bg-white border hover:bg-slate-100">
+          Explorar
+        </a>
+
+        <a href="/assistant"
+           class="px-3 py-2 rounded-lg bg-white border hover:bg-slate-100">
+          Asistente
+        </a>
+
+        <a href="/listings/new"
+           class="px-3 py-2 rounded-lg bg-slate-900 text-white hover:bg-slate-800">
+          Nuevo lugar
+        </a>
       </div>
     </div>
   </nav>
@@ -19,6 +44,12 @@
   <main class="max-w-6xl mx-auto px-4 py-6">
     {% block content %}{% endblock %}
   </main>
+
+  <footer class="max-w-6xl mx-auto px-4 pb-10">
+    <div class="text-xs text-slate-500">
+      MVP Hackathon · Datos en JSON · FastAPI + Tailwind
+    </div>
+  </footer>
 
   <script src="/static/app.js"></script>
 </body>

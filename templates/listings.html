@@ -1,44 +1,115 @@
 {% extends "base.html" %}
 {% block content %}
+
 <div class="flex items-start justify-between gap-4 flex-wrap">
   <div>
-    <h1 class="text-2xl font-bold">Explorar</h1>
-    <p class="text-slate-600">Rutas culturales sostenibles, listas para comprar (sin sufrir).</p>
+    <h1 class="text-2xl font-bold">Explorar lugares</h1>
+    <p class="text-slate-600">Oferta cultural curada: comida, historia, parques y artesanías. Sin perderse en “info suelta”.</p>
   </div>
 
-  <form class="flex gap-2 flex-wrap" method="get" action="/listings">
-    <input name="q" value="{{ q }}" placeholder="Buscar..." class="px-3 py-2 border rounded-lg" />
-    <select name="route" class="px-3 py-2 border rounded-lg">
-      <option value="">Todas las rutas</option>
-      {% for r in routes %}
-      <option value="{{ r }}" {% if r == route %}selected{% endif %}>{{ r }}</option>
-      {% endfor %}
-    </select>
-    <select name="category" class="px-3 py-2 border rounded-lg">
-      <option value="">Todas las categorías</option>
-      {% for c in categories %}
-      <option value="{{ c }}" {% if c == category %}selected{% endif %}>{{ c }}</option>
-      {% endfor %}
-    </select>
-    <button class="px-3 py-2 rounded-lg bg-white border hover:bg-slate-100">Filtrar</button>
+  <div class="flex gap-2 flex-wrap">
+    <a href="/assistant" class="px-3 py-2 rounded-lg bg-white border hover:bg-slate-100">Asistente</a>
+    <a href="/listings/new" class="px-3 py-2 rounded-lg bg-slate-900 text-white hover:bg-slate-800">Nuevo lugar</a>
+  </div>
+</div>
+
+<!-- Filters -->
+<div class="mt-6 bg-white border rounded-2xl p-4">
+  <form method="get" action="/listings" class="grid grid-cols-1 md:grid-cols-4 gap-3 items-end">
+    <div>
+      <label class="text-sm text-slate-600">Ruta</label>
+      <select name="route" class="w-full px-3 py-2 border rounded-lg">
+        <option value="">Todas</option>
+        {% for r in routes %}
+          <option value="{{ r }}" {% if route==r %}selected{% endif %}>{{ r }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div>
+      <label class="text-sm text-slate-600">Categoría</label>
+      <select name="category" class="w-full px-3 py-2 border rounded-lg">
+        <option value="">Todas</option>
+        {% for c in categories %}
+          <option value="{{ c }}" {% if category==c %}selected{% endif %}>{{ c }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div>
+      <label class="text-sm text-slate-600">Buscar</label>
+      <input name="q" value="{{ q }}" placeholder="ej: museo, ceviche, artesanía..."
+             class="w-full px-3 py-2 border rounded-lg" />
+    </div>
+
+    <div class="flex gap-2">
+      <button class="w-full px-4 py-2 rounded-lg bg-slate-900 text-white hover:bg-slate-800">
+        Filtrar
+      </button>
+      <a href="/listings" class="px-4 py-2 rounded-lg bg-white border hover:bg-slate-100">
+        Limpiar
+      </a>
+    </div>
   </form>
 </div>
 
-<div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
+<!-- Results -->
+{% if listings and listings|length > 0 %}
+<div class="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
   {% for l in listings %}
-  <a href="/listings/{{ l.id }}" class="bg-white border rounded-2xl p-4 hover:shadow-sm transition">
-    <div class="text-xs text-slate-500">{{ l.route }} · {{ l.category }}</div>
-    <div class="mt-1 font-semibold text-lg">{{ l.title }}</div>
-    <div class="mt-2 text-slate-600 text-sm line-clamp-3">{{ l.short_desc }}</div>
+  <a href="/listings/{{ l.id }}" class="block bg-white border rounded-2xl p-5 hover:shadow-sm transition">
+    <div class="flex items-start justify-between gap-3">
+      <div class="text-xs text-slate-500">
+        {{ l.route }}
+        · <span class="capitalize">{{ l.category }}</span>
+      </div>
+      <div class="text-sm font-bold">${{ "%.2f"|format(l.price_usd) }}</div>
+    </div>
+
+    <div class="mt-2 text-lg font-semibold leading-snug">
+      {{ l.title }}
+    </div>
+
+    <div class="mt-2 text-sm text-slate-700 line-clamp-3">
+      {{ l.short_desc }}
+    </div>
+
     <div class="mt-4 flex items-center justify-between">
-      <div class="text-sm font-semibold">${{ "%.2f"|format(l.price_usd) }}</div>
       <div class="text-xs text-slate-500">{{ l.duration_min }} min</div>
+      <div class="text-xs text-slate-500 truncate max-w-[60%]">{{ l.address }}</div>
+    </div>
+
+    {% if l.tags and l.tags|length > 0 %}
+    <div class="mt-4 flex gap-2 flex-wrap">
+      {% for t in l.tags[:3] %}
+      <span class="px-2 py-1 rounded-full bg-slate-50 border text-xs text-slate-700">{{ t }}</span>
+      {% endfor %}
+      {% if l.tags|length > 3 %}
+      <span class="px-2 py-1 rounded-full bg-slate-50 border text-xs text-slate-700">+{{ l.tags|length - 3 }}</span>
+      {% endif %}
+    </div>
+    {% endif %}
+
+    <div class="mt-4 flex gap-2">
+      <span class="inline-flex items-center px-3 py-1 rounded-lg bg-emerald-50 border text-emerald-800 text-xs">
+        Cultural
+      </span>
+      <span class="inline-flex items-center px-3 py-1 rounded-lg bg-amber-50 border text-amber-800 text-xs">
+        Sostenible
+      </span>
     </div>
   </a>
   {% endfor %}
 </div>
-
-{% if listings|length == 0 %}
-<div class="mt-10 text-slate-600">No hay resultados. O el Ecuador es demasiado épico para tu filtro.</div>
+{% else %}
+<div class="mt-6 bg-white border rounded-2xl p-8 text-center">
+  <div class="text-xl font-bold">No hay resultados</div>
+  <p class="text-slate-600 mt-2">Cambia filtros o limpia la búsqueda.</p>
+  <div class="mt-4 flex gap-2 justify-center">
+    <a href="/listings" class="px-4 py-2 rounded-lg bg-white border hover:bg-slate-100">Limpiar</a>
+    <a href="/listings/new" class="px-4 py-2 rounded-lg bg-slate-900 text-white hover:bg-slate-800">Crear lugar</a>
+  </div>
+</div>
 {% endif %}
+
 {% endblock %}

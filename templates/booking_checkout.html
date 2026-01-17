@@ -1,74 +1,179 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-  <div class="bg-white border rounded-2xl p-6">
-    <div class="text-xs text-slate-500">{{ listing.route }} · {{ listing.category }}</div>
-    <h1 class="text-2xl font-bold mt-1">{{ listing.title }}</h1>
+
+<div class="flex items-start justify-between gap-4 flex-wrap">
+  <div>
+    <h1 class="text-2xl font-bold">Checkout</h1>
+    <p class="text-slate-600">Paga con PayPal para confirmar la reserva (MVP).</p>
+  </div>
+  <a href="/listings/{{ listing.id }}" class="px-3 py-2 rounded-lg bg-white border hover:bg-slate-100">
+    Volver
+  </a>
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-6">
+  <!-- RESUMEN -->
+  <div class="lg:col-span-2 bg-white border rounded-2xl p-6">
+    <div class="text-xs text-slate-500">{{ listing.route }} · <span class="capitalize">{{ listing.category }}</span></div>
+    <div class="text-xl font-bold mt-1">{{ listing.title }}</div>
     <p class="text-slate-700 mt-3">{{ listing.short_desc }}</p>
-    <div class="mt-6 p-4 bg-slate-50 rounded-xl border">
-      <div class="text-sm text-slate-600">Total a pagar</div>
-      <div class="text-3xl font-bold">${{ "%.2f"|format(listing.price_usd) }}</div>
-      <div class="text-xs text-slate-500 mt-1">Pago seguro con PayPal</div>
+
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mt-4">
+      <div class="p-3 bg-slate-50 rounded-xl border">
+        <div class="text-xs text-slate-500">Precio</div>
+        <div class="font-bold">${{ "%.2f"|format(listing.price_usd) }}</div>
+      </div>
+      <div class="p-3 bg-slate-50 rounded-xl border">
+        <div class="text-xs text-slate-500">Duración</div>
+        <div class="font-bold">{{ listing.duration_min }} min</div>
+      </div>
+      <div class="p-3 bg-slate-50 rounded-xl border col-span-2">
+        <div class="text-xs text-slate-500">Dirección</div>
+        <div class="font-semibold">{{ listing.address }}</div>
+      </div>
     </div>
 
-    <div class="mt-6">
-      <label class="text-sm text-slate-600">Nombre</label>
-      <input id="buyer_name" class="w-full px-3 py-2 border rounded-lg" placeholder="Tu nombre" />
-      <label class="text-sm text-slate-600 mt-3 block">Email</label>
-      <input id="buyer_email" class="w-full px-3 py-2 border rounded-lg" placeholder="tu@email.com" />
+    <div class="mt-5 flex gap-2 flex-wrap">
+      {% if listing.maps_url %}
+      <a href="{{ listing.maps_url }}" target="_blank"
+         class="px-3 py-2 rounded-lg bg-white border hover:bg-slate-100">
+        Ver en Maps
+      </a>
+      {% endif %}
+      {% if listing.contact_whatsapp %}
+      <a href="https://wa.me/{{ listing.contact_whatsapp | replace('+','') }}" target="_blank"
+         class="px-3 py-2 rounded-lg bg-white border hover:bg-slate-100">
+        WhatsApp
+      </a>
+      {% endif %}
+      {% if listing.tiktok_url %}
+      <a href="{{ listing.tiktok_url }}" target="_blank"
+         class="px-3 py-2 rounded-lg bg-white border hover:bg-slate-100">
+        TikTok
+      </a>
+      {% endif %}
     </div>
   </div>
 
+  <!-- PAGO -->
   <div class="bg-white border rounded-2xl p-6">
-    <h2 class="text-xl font-bold">Pagar para reservar</h2>
-    <p class="text-slate-600 mt-2">Una vez pagado, registramos tu reserva (MVP).</p>
+    <h2 class="text-lg font-bold">Pagar con PayPal</h2>
+    <p class="text-sm text-slate-600 mt-1">
+      Completa tus datos y confirma el pago.
+    </p>
 
-    <div class="mt-6" id="paypal-button-container"></div>
+    <div class="grid gap-3 mt-4">
+      <div>
+        <label class="text-sm text-slate-600">Nombre</label>
+        <input id="buyer_name" type="text" placeholder="Tu nombre"
+               class="w-full px-3 py-2 border rounded-lg" />
+      </div>
 
-    <div class="mt-4 text-sm" id="pay-status"></div>
+      <div>
+        <label class="text-sm text-slate-600">Email</label>
+        <input id="buyer_email" type="email" placeholder="tu@email.com"
+               class="w-full px-3 py-2 border rounded-lg" />
+      </div>
+    </div>
+
+    <div id="errorBox" class="hidden mt-4 p-3 rounded-xl border bg-red-50 text-red-800 text-sm"></div>
+
+    <div class="mt-5">
+      <div id="paypal-button-container"></div>
+      <div class="text-xs text-slate-500 mt-3">
+        Ambiente: <span class="font-semibold">{{ "sandbox" if not env else env }}</span> ·
+        Este es un MVP para hackathon.
+      </div>
+    </div>
+
+    <div id="successBox" class="hidden mt-4 p-3 rounded-xl border bg-emerald-50 text-emerald-800 text-sm"></div>
   </div>
 </div>
 
-<script src="https://www.paypal.com/sdk/js?client-id={{ paypal_client_id }}&currency=USD"></script>
 <script>
-  const listingId = "{{ listing.id }}";
+  const LISTING_ID = "{{ listing.id }}";
+  const PRICE = Number("{{ '%.2f'|format(listing.price_usd) }}");
+  const paypalClientId = "{{ paypal_client_id }}";
 
-  paypal.Buttons({
-    createOrder: async function() {
-      const r = await fetch("/api/paypal/create-order", {
-        method: "POST",
-        headers: {"Content-Type":"application/json"},
-        body: JSON.stringify({ listing_id: listingId })
-      });
-      const data = await r.json();
-      return data.order_id;
-    },
+  const errorBox = document.getElementById("errorBox");
+  const successBox = document.getElementById("successBox");
 
-    onApprove: async function(data) {
-      const buyerName = document.getElementById("buyer_name").value || "Guest";
-      const buyerEmail = document.getElementById("buyer_email").value || "guest@example.com";
+  function showError(msg) {
+    errorBox.classList.remove("hidden");
+    errorBox.textContent = msg;
+  }
 
-      const r = await fetch("/api/paypal/capture-order", {
-        method: "POST",
-        headers: {"Content-Type":"application/json"},
-        body: JSON.stringify({
-          listing_id: listingId,
-          order_id: data.orderID,
-          buyer_name: buyerName,
-          buyer_email: buyerEmail
-        })
-      });
-      const res = await r.json();
-      const el = document.getElementById("pay-status");
+  function showSuccess(msg) {
+    successBox.classList.remove("hidden");
+    successBox.textContent = msg;
+  }
 
-      if (res.ok) {
-        el.className = "mt-4 text-sm text-emerald-700";
-        el.textContent = "Pago OK. Reserva creada: " + res.booking_id;
-      } else {
-        el.className = "mt-4 text-sm text-red-700";
-        el.textContent = "Pago falló. Estado PayPal: " + res.paypal_status;
+  if (!paypalClientId) {
+    showError("Falta PAYPAL_CLIENT_ID en el servidor. Revisa tu .env.");
+  } else {
+    const script = document.createElement("script");
+    script.src = `https://www.paypal.com/sdk/js?client-id=${paypalClientId}&currency=USD&intent=capture`;
+    script.onload = () => {
+      if (!window.paypal) {
+        showError("No se pudo cargar PayPal SDK.");
+        return;
       }
-    }
-  }).render("#paypal-button-container");
+
+      paypal.Buttons({
+        createOrder: async function() {
+          try {
+            const res = await fetch("/api/paypal/create-order", {
+              method: "POST",
+              headers: {"Content-Type": "application/json"},
+              body: JSON.stringify({ listing_id: LISTING_ID })
+            });
+            const data = await res.json();
+            if (!res.ok) throw new Error(data.detail || "Error creando orden");
+            return data.order_id;
+          } catch (e) {
+            showError(e.message || "Error creando orden");
+            throw e;
+          }
+        },
+
+        onApprove: async function(data) {
+          try {
+            const buyer_name = document.getElementById("buyer_name").value || "Guest";
+            const buyer_email = document.getElementById("buyer_email").value || "guest@example.com";
+
+            const res = await fetch("/api/paypal/capture-order", {
+              method: "POST",
+              headers: {"Content-Type": "application/json"},
+              body: JSON.stringify({
+                listing_id: LISTING_ID,
+                order_id: data.orderID,
+                buyer_name,
+                buyer_email
+              })
+            });
+
+            const out = await res.json();
+            if (!res.ok) throw new Error(out.detail || "Error capturando pago");
+
+            if (out.ok) {
+              showSuccess(`Pago confirmado. Booking ID: ${out.booking_id}`);
+            } else {
+              showError(`Pago no completado. Estado: ${out.paypal_status || "UNKNOWN"}`);
+            }
+          } catch (e) {
+            showError(e.message || "Error capturando pago");
+          }
+        },
+
+        onError: function(err) {
+          showError("Error PayPal: " + (err?.message || "desconocido"));
+        }
+      }).render("#paypal-button-container");
+    };
+
+    script.onerror = () => showError("No se pudo cargar el script de PayPal.");
+    document.body.appendChild(script);
+  }
 </script>
+
 {% endblock %}
