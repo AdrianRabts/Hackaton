@@ -1,3 +1,6 @@
+
+import json
+import requests
 import os
 import random
 from typing import Any
@@ -203,43 +206,172 @@ def delete_listing(listing_id: str):
     return RedirectResponse(url="/listings", status_code=303)
 
 
-# ====== ASSISTANT (itinerarios) ======
-def build_narrative(item: dict) -> str:
-    lines = [
-        "Pregunta por la historia del lugar: ahí está el valor cultural, no solo la foto.",
-        "Compra local, aunque sea pequeño: eso sí se queda en la comunidad.",
-        "Respeta el espacio y la gente: cultura no es parque temático.",
-        "Si puedes, anda con guía/host local: sube la experiencia y el impacto."
-    ]
-    return random.choice(lines)
+# ====== ASSISTANT (IA real con OpenAI Responses API) ======
 
-def pick_items_for_day(pool: list[dict], interests: list[str], budget_left: float, max_items: int = 4):
-    if interests:
-        filtered = [p for p in pool if p.get("category") in interests]
-        if filtered:
-            pool = filtered
+OPENAI_RESPONSES_URL = "https://api.openai.com/v1/responses"
 
-    pool = sorted(pool, key=lambda x: float(x.get("price_usd", 0)))
-    picked = []
-    total = 0.0
+ITINERARY_SCHEMA = {
+    "name": "itinerary_schema",
+    "schema": {
+        "type": "object",
+        "additionalProperties": False,
+        "properties": {
+            "route": {"type": "string"},
+            "days": {"type": "integer"},
+            "budget": {"type": "number"},
+            "estimate_total": {"type": "number"},
+            "narrative": {"type": "string"},
+            "plan_b": {"type": "array", "items": {"type": "string"}},
+            "sustainability": {"type": "array", "items": {"type": "string"}},
+            "itinerary": {
+                "type": "array",
+                "items": {
+                    "type": "object",
+                    "additionalProperties": False,
+                    "properties": {
+                        "day": {"type": "integer"},
+                        "items": {
+                            "type": "array",
+                            "items": {
+                                "type": "object",
+                                "additionalProperties": False,
+                                "properties": {
+                                    "listing_id": {"type": "string"},
+                                    "title": {"type": "string"},
+                                    "category": {"type": "string"},
+                                    "why": {"type": "string"},
+                                    "price_usd": {"type": "number"},
+                                    "duration_min": {"type": "integer"},
+                                    "address": {"type": "string"},
+                                    "maps_url": {"type": "string"},
+                                    "tiktok_url": {"type": "string"},
+                                },
+                                "required": [
+                                    "listing_id",
+                                    "title",
+                                    "category",
+                                    "why",
+                                    "price_usd",
+                                    "duration_min",
+                                    "address",
+                                ],
+                            },
+                        },
+                    },
+                    "required": ["day", "items"],
+                },
+            },
+        },
+        "required": [
+            "route",
+            "days",
+            "budget",
+            "estimate_total",
+            "narrative",
+            "plan_b",
+            "sustainability",
+            "itinerary",
+        ],
+    },
+    "strict": True,
+}
 
-    for item in pool:
-        if len(picked) >= max_items:
-            break
-        price = float(item.get("price_usd", 0))
-        if total + price <= budget_left:
-            it = dict(item)
-            it["narrative"] = build_narrative(it)
-            picked.append(it)
-            total += price
 
-    if not picked and pool:
-        it = dict(pool[0])
-        it["narrative"] = build_narrative(it)
-        picked.append(it)
-        total = float(it.get("price_usd", 0))
+def _extract_output_text(resp_json: dict) -> str:
+    # En Responses API, la salida viene en resp_json["output"] como items de tipo "message"
+    chunks = []
+    for item in resp_json.get("output", []):
+        if item.get("type") != "message":
+            continue
+        for c in item.get("content", []):
+            if c.get("type") == "output_text":
+                chunks.append(c.get("text", ""))
+    return "\n".join(chunks).strip()
 
-    return picked, total
+
+def generate_itinerary_with_openai(
+    route: str, days: int, budget: float, interests: list[str], candidates: list[dict]
+) -> dict:
+    api_key = os.getenv("OPENAI_API_KEY", "").strip()
+    if not api_key:
+        raise RuntimeError("Falta OPENAI_API_KEY en .env")
+
+    model = os.getenv("OPENAI_MODEL", "gpt-5.2").strip() or "gpt-5.2"
+
+    # recortamos candidatos para no mandar un libro entero
+    slim = []
+    for l in candidates[:40]:
+        slim.append({
+            "id": l.get("id", ""),
+            "title": l.get("title", ""),
+            "category": l.get("category", ""),
+            "short_desc": l.get("short_desc", ""),
+            "price_usd": float(l.get("price_usd", 0)),
+            "duration_min": int(l.get("duration_min", 0)),
+            "address": l.get("address", ""),
+            "maps_url": l.get("maps_url", ""),
+            "tiktok_url": l.get("tiktok_url", ""),
+            "tags": l.get("tags", []),
+        })
+
+    system = (
+        "Eres un asistente de itinerarios culturales sostenibles en Ecuador. "
+        "Tu objetivo: convertir oferta dispersa en un itinerario vendible. "
+        "Reglas: NO inventes lugares. SOLO usa listing_id de los candidatos. "
+        "Optimiza por: autenticidad cultural, compra local, logística realista, y presupuesto."
+    )
+
+    user = {
+        "route": route,
+        "days": days,
+        "budget_usd": budget,
+        "interests_categories": interests,
+        "candidates": slim,
+        "constraints": {
+            "max_items_per_day": 4,
+            "prefer_mix_categories": True,
+            "keep_total_under_budget_if_possible": True
+        }
+    }
+
+    payload = {
+        "model": model,
+        "input": [
+            {"role": "system", "content": system},
+            {"role": "user", "content": json.dumps(user, ensure_ascii=False)}
+        ],
+        # Structured Outputs en Responses API se define con text.format (json_schema) :contentReference[oaicite:3]{index=3}
+        "text": {
+            "format": {
+                "type": "json_schema",
+                "name": ITINERARY_SCHEMA["name"],
+                "schema": ITINERARY_SCHEMA["schema"],
+                "strict": True,
+            }
+        },
+        # Para hackathon: mejor no almacenar (store por defecto es true) :contentReference[oaicite:4]{index=4}
+        "store": False,
+        "max_output_tokens": 900
+    }
+
+    r = requests.post(
+        OPENAI_RESPONSES_URL,
+        headers={
+            "Authorization": f"Bearer {api_key}",  # Bearer auth :contentReference[oaicite:5]{index=5}
+            "Content-Type": "application/json",
+        },
+        json=payload,
+        timeout=35,
+    )
+    if r.status_code >= 400:
+        raise RuntimeError(f"OpenAI API error {r.status_code}: {r.text[:300]}")
+
+    resp_json = r.json()
+    txt = _extract_output_text(resp_json)
+    if not txt:
+        raise RuntimeError("OpenAI no devolvió texto")
+    return json.loads(txt)
+
 
 @app.get("/assistant")
 def assistant_page(request: Request):
@@ -249,8 +381,10 @@ def assistant_page(request: Request):
         "routes": get_routes(db),
         "categories": CATEGORIES,
         "result": None,
-        "form": None
+        "form": None,
+        "ai_error": None
     })
+
 
 @app.post("/assistant")
 def assistant_generate(
@@ -267,41 +401,84 @@ def assistant_generate(
     budget = float(budget)
     interests = interests or []
 
-    random.shuffle(listings)
+    ai_error = None
 
-    itinerary = []
-    estimate_total = 0.0
-    budget_left = budget
-
-    for d in range(1, days + 1):
-        day_items, day_total = pick_items_for_day(
-            pool=listings,
+    try:
+        result = generate_itinerary_with_openai(
+            route=route,
+            days=days,
+            budget=budget,
             interests=interests,
-            budget_left=budget_left,
-            max_items=4
+            candidates=listings
         )
-        estimate_total += day_total
-        budget_left = max(0.0, budget_left - day_total)
 
-        itinerary.append({"day": d, "items": day_items})
+        # Validación rápida: si el modelo inventa un id, lo botamos
+        valid_ids = {l.get("id") for l in listings}
+        for day in result.get("itinerary", []):
+            day["items"] = [it for it in day.get("items", []) if it.get("listing_id") in valid_ids]
 
-    result = {
-        "route": route,
-        "days": days,
-        "budget": budget,
-        "estimate_total": estimate_total,
-        "itinerary": itinerary,
-        "plan_b": [
-            "Si llueve: prioriza museos/talleres bajo techo y mueve parques para otro día.",
-            "Si está lleno: cambia por otro lugar de la misma categoría (misma vibra, menos cola).",
-            "Si cierran temprano: arranca por lo más lejano y luego te devuelves al centro."
-        ],
-        "sustainability": [
-            "Compra local: comida/arte directo al emprendedor (impacto real).",
-            "Pide permiso antes de grabar o fotografiar (respeto cultural).",
-            "Evita saturación: horarios alternos y grupos pequeños."
-        ]
-    }
+    except Exception as e:
+        # Fallback: si la IA falla por red o key, no muere el demo
+        ai_error = str(e)
+
+        # fallback simple (lo que ya tenías)
+        random.shuffle(listings)
+        itinerary = []
+        estimate_total = 0.0
+        budget_left = budget
+
+        def pick(pool, interests, budget_left, max_items=4):
+            if interests:
+                filtered = [p for p in pool if p.get("category") in interests]
+                if filtered:
+                    pool = filtered
+            pool = sorted(pool, key=lambda x: float(x.get("price_usd", 0)))
+            picked, total = [], 0.0
+            for item in pool:
+                if len(picked) >= max_items:
+                    break
+                price = float(item.get("price_usd", 0))
+                if total + price <= budget_left:
+                    picked.append(item)
+                    total += price
+            return picked, total
+
+        for d in range(1, days + 1):
+            day_items, day_total = pick(listings, interests, budget_left, 4)
+            estimate_total += day_total
+            budget_left = max(0.0, budget_left - day_total)
+            itinerary.append({
+                "day": d,
+                "items": [
+                    {
+                        "listing_id": it.get("id"),
+                        "title": it.get("title"),
+                        "category": it.get("category"),
+                        "why": "Fallback sin IA: selección por presupuesto + categoría.",
+                        "price_usd": float(it.get("price_usd", 0)),
+                        "duration_min": int(it.get("duration_min", 0)),
+                        "address": it.get("address", ""),
+                        "maps_url": it.get("maps_url", ""),
+                        "tiktok_url": it.get("tiktok_url", ""),
+                    } for it in day_items
+                ]
+            })
+
+        result = {
+            "route": route,
+            "days": days,
+            "budget": budget,
+            "estimate_total": estimate_total,
+            "narrative": "Modo fallback: hoy la IA se fue a comprar encebollado, pero el demo sigue vivo.",
+            "plan_b": [
+                "Si llueve: museos/talleres bajo techo primero.",
+                "Si está lleno: cambia por otro de la misma categoría."
+            ],
+            "sustainability": [
+                "Compra local y respeta cultura (no es parque temático)."
+            ],
+            "itinerary": itinerary
+        }
 
     form_state = {"route": route, "days": days, "budget": budget, "interests": interests}
 
@@ -310,8 +487,10 @@ def assistant_generate(
         "routes": get_routes(db),
         "categories": CATEGORIES,
         "result": result,
-        "form": form_state
+        "form": form_state,
+        "ai_error": ai_error
     })
+
 
 
 # ====== PAYPAL CHECKOUT ======
