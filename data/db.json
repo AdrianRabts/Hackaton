@@ -12,7 +12,12 @@
       "maps_url": "https://www.google.com/maps/search/?api=1&query=Ceviche+Puerto+Lopez+Manabi",
       "contact_whatsapp": "+593999100001",
       "tiktok_url": "https://www.tiktok.com/@culturalroutes/video/700000001",
-      "tags": ["compra_local", "mariscos", "autentico", "familias"]
+      "tags": [
+        "compra_local",
+        "mariscos",
+        "autentico",
+        "familias"
+      ]
     },
     {
       "id": "l_002",
@@ -26,7 +31,12 @@
       "maps_url": "https://www.google.com/maps/search/?api=1&query=Encocado+Salango+Manabi",
       "contact_whatsapp": "+593999100002",
       "tiktok_url": "https://www.tiktok.com/@culturalroutes/video/700000002",
-      "tags": ["compra_local", "autentico", "coco", "sostenible"]
+      "tags": [
+        "compra_local",
+        "autentico",
+        "coco",
+        "sostenible"
+      ]
     },
     {
       "id": "l_003",
@@ -40,7 +50,12 @@
       "maps_url": "https://www.google.com/maps/search/?api=1&query=Bolon+Montanita+Santa+Elena",
       "contact_whatsapp": "+593999100003",
       "tiktok_url": "https://www.tiktok.com/@culturalroutes/video/700000003",
-      "tags": ["barato", "familias", "desayuno", "compra_local"]
+      "tags": [
+        "barato",
+        "familias",
+        "desayuno",
+        "compra_local"
+      ]
     },
     {
       "id": "l_004",
@@ -54,7 +69,11 @@
       "maps_url": "https://www.google.com/maps/search/?api=1&query=Corviche+Montanita",
       "contact_whatsapp": "+593999100004",
       "tiktok_url": "https://www.tiktok.com/@culturalroutes/video/700000004",
-      "tags": ["autentico", "compra_local", "snack"]
+      "tags": [
+        "autentico",
+        "compra_local",
+        "snack"
+      ]
     },
     {
       "id": "l_005",
@@ -68,7 +87,11 @@
       "maps_url": "https://www.google.com/maps/search/?api=1&query=Arroz+con+menestra+Jipijapa",
       "contact_whatsapp": "+593999100005",
       "tiktok_url": "https://www.tiktok.com/@culturalroutes/video/700000005",
-      "tags": ["compra_local", "clasico", "familias"]
+      "tags": [
+        "compra_local",
+        "clasico",
+        "familias"
+      ]
     },
     {
       "id": "l_006",
@@ -82,7 +105,11 @@
       "maps_url": "https://www.google.com/maps/search/?api=1&query=Tigrillo+Olon+Santa+Elena",
       "contact_whatsapp": "+593999100006",
       "tiktok_url": "https://www.tiktok.com/@culturalroutes/video/700000006",
-      "tags": ["desayuno", "barato", "compra_local"]
+      "tags": [
+        "desayuno",
+        "barato",
+        "compra_local"
+      ]
     },
     {
       "id": "l_007",
@@ -96,7 +123,11 @@
       "maps_url": "https://www.google.com/maps/search/?api=1&query=Helado+artesanal+Ayampe",
       "contact_whatsapp": "+593999100007",
       "tiktok_url": "https://www.tiktok.com/@culturalroutes/video/700000007",
-      "tags": ["compra_local", "familias", "barato"]
+      "tags": [
+        "compra_local",
+        "familias",
+        "barato"
+      ]
     },
     {
       "id": "l_008",
@@ -110,7 +141,12 @@
       "maps_url": "https://www.google.com/maps/search/?api=1&query=Cafe+cacao+Manta",
       "contact_whatsapp": "+593999100008",
       "tiktok_url": "https://www.tiktok.com/@culturalroutes/video/700000008",
-      "tags": ["cacao", "autentico", "lluvia_ok", "compra_local"]
+      "tags": [
+        "cacao",
+        "autentico",
+        "lluvia_ok",
+        "compra_local"
+      ]
     },
     {
       "id": "l_009",
@@ -124,7 +160,12 @@
       "maps_url": "https://www.google.com/maps/search/?api=1&query=Museo+Salango",
       "contact_whatsapp": "+593999100009",
       "tiktok_url": "https://www.tiktok.com/@culturalroutes/video/700000009",
-      "tags": ["historia", "autentico", "comunidad", "lluvia_ok"]
+      "tags": [
+        "historia",
+        "autentico",
+        "comunidad",
+        "lluvia_ok"
+      ]
     },
     {
       "id": "l_010",
@@ -138,7 +179,12 @@
       "maps_url": "https://www.google.com/maps/search/?api=1&query=Agua+Blanca+Machalilla",
       "contact_whatsapp": "+593999100010",
       "tiktok_url": "https://www.tiktok.com/@culturalroutes/video/700000010",
-      "tags": ["comunidad", "autentico", "sostenible", "guia"]
+      "tags": [
+        "comunidad",
+        "autentico",
+        "sostenible",
+        "guia"
+      ]
     },
     {
       "id": "l_011",
@@ -152,7 +198,11 @@
       "maps_url": "https://www.google.com/maps/search/?api=1&query=Centro+historico+Jipijapa",
       "contact_whatsapp": "+593999100011",
       "tiktok_url": "https://www.tiktok.com/@culturalroutes/video/700000011",
-      "tags": ["gratis", "historia", "compra_local"]
+      "tags": [
+        "gratis",
+        "historia",
+        "compra_local"
+      ]
     },
     {
       "id": "l_012",
@@ -166,7 +216,11 @@
       "maps_url": "https://www.google.com/maps/search/?api=1&query=Hojas+Jaboncillo+Manabi",
       "contact_whatsapp": "+593999100012",
       "tiktok_url": "https://www.tiktok.com/@culturalroutes/video/700000012",
-      "tags": ["historia", "sostenible", "mirador"]
+      "tags": [
+        "historia",
+        "sostenible",
+        "mirador"
+      ]
     },
     {
       "id": "l_013",
@@ -180,7 +234,11 @@
       "maps_url": "https://www.google.com/maps/search/?api=1&query=Centro+Cultural+Manta",
       "contact_whatsapp": "+593999100013",
       "tiktok_url": "https://www.tiktok.com/@culturalroutes/video/700000013",
-      "tags": ["lluvia_ok", "historia", "cultura"]
+      "tags": [
+        "lluvia_ok",
+        "historia",
+        "cultura"
+      ]
     },
     {
       "id": "l_014",
@@ -194,7 +252,12 @@
       "maps_url": "https://www.google.com/maps/search/?api=1&query=Parque+Nacional+Machalilla",
       "contact_whatsapp": "+593999100014",
       "tiktok_url": "https://www.tiktok.com/@culturalroutes/video/700000014",
-      "tags": ["gratis", "naturaleza", "sostenible", "familias"]
+      "tags": [
+        "gratis",
+        "naturaleza",
+        "sostenible",
+        "familias"
+      ]
     },
     {
       "id": "l_015",
@@ -208,7 +271,11 @@
       "maps_url": "https://www.google.com/maps/search/?api=1&query=Playa+Los+Frailes",
       "contact_whatsapp": "+593999100015",
       "tiktok_url": "https://www.tiktok.com/@culturalroutes/video/700000015",
-      "tags": ["gratis", "sostenible", "naturaleza"]
+      "tags": [
+        "gratis",
+        "sostenible",
+        "naturaleza"
+      ]
     },
     {
       "id": "l_016",
@@ -222,7 +289,12 @@
       "maps_url": "https://www.google.com/maps/search/?api=1&query=Sombreros+Montecristi",
       "contact_whatsapp": "+593999100016",
       "tiktok_url": "https://www.tiktok.com/@culturalroutes/video/700000016",
-      "tags": ["compra_local", "autentico", "taller", "cultura"]
+      "tags": [
+        "compra_local",
+        "autentico",
+        "taller",
+        "cultura"
+      ]
     },
     {
       "id": "l_017",
@@ -236,7 +308,11 @@
       "maps_url": "https://www.google.com/maps/search/?api=1&query=Artesanias+tagua+Santa+Elena",
       "contact_whatsapp": "+593999100017",
       "tiktok_url": "https://www.tiktok.com/@culturalroutes/video/700000017",
-      "tags": ["sostenible", "compra_local", "autentico"]
+      "tags": [
+        "sostenible",
+        "compra_local",
+        "autentico"
+      ]
     },
     {
       "id": "l_018",
@@ -250,7 +326,12 @@
       "maps_url": "https://www.google.com/maps/search/?api=1&query=Ceramica+Puerto+Lopez",
       "contact_whatsapp": "+593999100018",
       "tiktok_url": "https://www.tiktok.com/@culturalroutes/video/700000018",
-      "tags": ["taller", "autentico", "familias", "lluvia_ok"]
+      "tags": [
+        "taller",
+        "autentico",
+        "familias",
+        "lluvia_ok"
+      ]
     },
     {
       "id": "l_019",
@@ -264,7 +345,11 @@
       "maps_url": "https://www.google.com/maps/search/?api=1&query=Hamacas+Olon",
       "contact_whatsapp": "+593999100019",
       "tiktok_url": "https://www.tiktok.com/@culturalroutes/video/700000019",
-      "tags": ["compra_local", "autentico", "regalo"]
+      "tags": [
+        "compra_local",
+        "autentico",
+        "regalo"
+      ]
     },
     {
       "id": "l_020",
@@ -278,9 +363,12 @@
       "maps_url": "https://www.google.com/maps/search/?api=1&query=Bisuteria+conchas+Ayampe",
       "contact_whatsapp": "+593999100020",
       "tiktok_url": "https://www.tiktok.com/@culturalroutes/video/700000020",
-      "tags": ["barato", "compra_local", "autentico"]
+      "tags": [
+        "barato",
+        "compra_local",
+        "autentico"
+      ]
     },
-
     {
       "id": "l_021",
       "route": "Cuenca",
@@ -293,7 +381,11 @@
       "maps_url": "https://www.google.com/maps/search/?api=1&query=Mote+pillo+Cuenca",
       "contact_whatsapp": "+593999200001",
       "tiktok_url": "https://www.tiktok.com/@culturalroutes/video/700000021",
-      "tags": ["desayuno", "compra_local", "autentico"]
+      "tags": [
+        "desayuno",
+        "compra_local",
+        "autentico"
+      ]
     },
     {
       "id": "l_022",
@@ -307,7 +399,11 @@
       "maps_url": "https://www.google.com/maps/search/?api=1&query=Cuy+asado+Cuenca",
       "contact_whatsapp": "+593999200002",
       "tiktok_url": "https://www.tiktok.com/@culturalroutes/video/700000022",
-      "tags": ["autentico", "cultura", "familias"]
+      "tags": [
+        "autentico",
+        "cultura",
+        "familias"
+      ]
     },
     {
       "id": "l_023",
@@ -321,7 +417,11 @@
       "maps_url": "https://www.google.com/maps/search/?api=1&query=Mercado+10+de+Agosto+Cuenca+tamal",
       "contact_whatsapp": "+593999200003",
       "tiktok_url": "https://www.tiktok.com/@culturalroutes/video/700000023",
-      "tags": ["barato", "compra_local", "desayuno"]
+      "tags": [
+        "barato",
+        "compra_local",
+        "desayuno"
+      ]
     },
     {
       "id": "l_024",
@@ -335,7 +435,11 @@
       "maps_url": "https://www.google.com/maps/search/?api=1&query=Mercado+9+de+Octubre+Cuenca+hornado",
       "contact_whatsapp": "+593999200004",
       "tiktok_url": "https://www.tiktok.com/@culturalroutes/video/700000024",
-      "tags": ["compra_local", "clasico", "familias"]
+      "tags": [
+        "compra_local",
+        "clasico",
+        "familias"
+      ]
     },
     {
       "id": "l_025",
@@ -349,7 +453,11 @@
       "maps_url": "https://www.google.com/maps/search/?api=1&query=Chocolate+caliente+Cuenca+centro",
       "contact_whatsapp": "+593999200005",
       "tiktok_url": "https://www.tiktok.com/@culturalroutes/video/700000025",
-      "tags": ["lluvia_ok", "familias", "compra_local"]
+      "tags": [
+        "lluvia_ok",
+        "familias",
+        "compra_local"
+      ]
     },
     {
       "id": "l_026",
@@ -363,7 +471,10 @@
       "maps_url": "https://www.google.com/maps/search/?api=1&query=Trucha+Cuenca",
       "contact_whatsapp": "+593999200006",
       "tiktok_url": "https://www.tiktok.com/@culturalroutes/video/700000026",
-      "tags": ["compra_local", "autentico"]
+      "tags": [
+        "compra_local",
+        "autentico"
+      ]
     },
     {
       "id": "l_027",
@@ -377,7 +488,11 @@
       "maps_url": "https://www.google.com/maps/search/?api=1&query=Empanadas+de+viento+Parque+Calderon+Cuenca",
       "contact_whatsapp": "+593999200007",
       "tiktok_url": "https://www.tiktok.com/@culturalroutes/video/700000027",
-      "tags": ["barato", "familias", "compra_local"]
+      "tags": [
+        "barato",
+        "familias",
+        "compra_local"
+      ]
     },
     {
       "id": "l_028",
@@ -391,7 +506,11 @@
       "maps_url": "https://www.google.com/maps/search/?api=1&query=Cafe+especialidad+Cuenca+centro",
       "contact_whatsapp": "+593999200008",
       "tiktok_url": "https://www.tiktok.com/@culturalroutes/video/700000028",
-      "tags": ["lluvia_ok", "cafe", "compra_local"]
+      "tags": [
+        "lluvia_ok",
+        "cafe",
+        "compra_local"
+      ]
     },
     {
       "id": "l_029",
@@ -405,7 +524,12 @@
       "maps_url": "https://www.google.com/maps/search/?api=1&query=Catedral+de+la+Inmaculada+Concepcion+Cuenca",
       "contact_whatsapp": "+593999200009",
       "tiktok_url": "https://www.tiktok.com/@culturalroutes/video/700000029",
-      "tags": ["historia", "cultura", "familias", "lluvia_ok"]
+      "tags": [
+        "historia",
+        "cultura",
+        "familias",
+        "lluvia_ok"
+      ]
     },
     {
       "id": "l_030",
@@ -419,7 +543,11 @@
       "maps_url": "https://www.google.com/maps/search/?api=1&query=Catedral+Vieja+Cuenca",
       "contact_whatsapp": "+593999200010",
       "tiktok_url": "https://www.tiktok.com/@culturalroutes/video/700000030",
-      "tags": ["historia", "lluvia_ok", "cultura"]
+      "tags": [
+        "historia",
+        "lluvia_ok",
+        "cultura"
+      ]
     },
     {
       "id": "l_031",
@@ -433,7 +561,12 @@
       "maps_url": "https://www.google.com/maps/search/?api=1&query=Museo+Pumapungo+Cuenca",
       "contact_whatsapp": "+593999200011",
       "tiktok_url": "https://www.tiktok.com/@culturalroutes/video/700000031",
-      "tags": ["gratis", "historia", "lluvia_ok", "cultura"]
+      "tags": [
+        "gratis",
+        "historia",
+        "lluvia_ok",
+        "cultura"
+      ]
     },
     {
       "id": "l_032",
@@ -447,7 +580,11 @@
       "maps_url": "https://www.google.com/maps/search/?api=1&query=San+Sebastian+Cuenca",
       "contact_whatsapp": "+593999200012",
       "tiktok_url": "https://www.tiktok.com/@culturalroutes/video/700000032",
-      "tags": ["gratis", "cultura", "compra_local"]
+      "tags": [
+        "gratis",
+        "cultura",
+        "compra_local"
+      ]
     },
     {
       "id": "l_033",
@@ -461,7 +598,11 @@
       "maps_url": "https://www.google.com/maps/search/?api=1&query=Mirador+de+Turi+Cuenca",
       "contact_whatsapp": "+593999200013",
       "tiktok_url": "https://www.tiktok.com/@culturalroutes/video/700000033",
-      "tags": ["mirador", "familias", "cultura"]
+      "tags": [
+        "mirador",
+        "familias",
+        "cultura"
+      ]
     },
     {
       "id": "l_034",
@@ -475,7 +616,11 @@
       "maps_url": "https://www.google.com/maps/search/?api=1&query=Parque+Calderon+Cuenca",
       "contact_whatsapp": "+593999200014",
       "tiktok_url": "https://www.tiktok.com/@culturalroutes/video/700000034",
-      "tags": ["gratis", "familias", "cultura"]
+      "tags": [
+        "gratis",
+        "familias",
+        "cultura"
+      ]
     },
     {
       "id": "l_035",
@@ -489,7 +634,11 @@
       "maps_url": "https://www.google.com/maps/search/?api=1&query=Parque+El+Paraiso+Cuenca",
       "contact_whatsapp": "+593999200015",
       "tiktok_url": "https://www.tiktok.com/@culturalroutes/video/700000035",
-      "tags": ["gratis", "familias", "naturaleza"]
+      "tags": [
+        "gratis",
+        "familias",
+        "naturaleza"
+      ]
     },
     {
       "id": "l_036",
@@ -503,7 +652,12 @@
       "maps_url": "https://www.google.com/maps/search/?api=1&query=Sombrero+paja+toquilla+Cuenca",
       "contact_whatsapp": "+593999200016",
       "tiktok_url": "https://www.tiktok.com/@culturalroutes/video/700000036",
-      "tags": ["taller", "compra_local", "autentico", "cultura"]
+      "tags": [
+        "taller",
+        "compra_local",
+        "autentico",
+        "cultura"
+      ]
     },
     {
       "id": "l_037",
@@ -517,7 +671,11 @@
       "maps_url": "https://www.google.com/maps/search/?api=1&query=Joyeria+artesanal+Cuenca",
       "contact_whatsapp": "+593999200017",
       "tiktok_url": "https://www.tiktok.com/@culturalroutes/video/700000037",
-      "tags": ["compra_local", "autentico", "regalo"]
+      "tags": [
+        "compra_local",
+        "autentico",
+        "regalo"
+      ]
     },
     {
       "id": "l_038",
@@ -531,7 +689,12 @@
       "maps_url": "https://www.google.com/maps/search/?api=1&query=Ceramica+artesanal+Cuenca",
       "contact_whatsapp": "+593999200018",
       "tiktok_url": "https://www.tiktok.com/@culturalroutes/video/700000038",
-      "tags": ["lluvia_ok", "taller", "familias", "compra_local"]
+      "tags": [
+        "lluvia_ok",
+        "taller",
+        "familias",
+        "compra_local"
+      ]
     },
     {
       "id": "l_039",
@@ -545,7 +708,11 @@
       "maps_url": "https://www.google.com/maps/search/?api=1&query=Tejidos+artesanales+Cuenca",
       "contact_whatsapp": "+593999200019",
       "tiktok_url": "https://www.tiktok.com/@culturalroutes/video/700000039",
-      "tags": ["compra_local", "autentico", "cultura"]
+      "tags": [
+        "compra_local",
+        "autentico",
+        "cultura"
+      ]
     },
     {
       "id": "l_040",
@@ -559,9 +726,12 @@
       "maps_url": "https://www.google.com/maps/search/?api=1&query=Plaza+San+Francisco+Cuenca+artesanias",
       "contact_whatsapp": "+593999200020",
       "tiktok_url": "https://www.tiktok.com/@culturalroutes/video/700000040",
-      "tags": ["compra_local", "autentico", "familias"]
+      "tags": [
+        "compra_local",
+        "autentico",
+        "familias"
+      ]
     },
-
     {
       "id": "l_041",
       "route": "Tena",
@@ -574,7 +744,11 @@
       "maps_url": "https://www.google.com/maps/search/?api=1&query=Maito+Tena+Napo",
       "contact_whatsapp": "+593999300001",
       "tiktok_url": "https://www.tiktok.com/@culturalroutes/video/700000041",
-      "tags": ["autentico", "compra_local", "amazonia"]
+      "tags": [
+        "autentico",
+        "compra_local",
+        "amazonia"
+      ]
     },
     {
       "id": "l_042",
@@ -588,7 +762,11 @@
       "maps_url": "https://www.google.com/maps/search/?api=1&query=Chontacuro+Misahualli",
       "contact_whatsapp": "+593999300002",
       "tiktok_url": "https://www.tiktok.com/@culturalroutes/video/700000042",
-      "tags": ["autentico", "cultura", "compra_local"]
+      "tags": [
+        "autentico",
+        "cultura",
+        "compra_local"
+      ]
     },
     {
       "id": "l_043",
@@ -602,7 +780,11 @@
       "maps_url": "https://www.google.com/maps/search/?api=1&query=Ayampaco+Tena",
       "contact_whatsapp": "+593999300003",
       "tiktok_url": "https://www.tiktok.com/@culturalroutes/video/700000043",
-      "tags": ["amazonia", "autentico", "compra_local"]
+      "tags": [
+        "amazonia",
+        "autentico",
+        "compra_local"
+      ]
     },
     {
       "id": "l_044",
@@ -616,7 +798,12 @@
       "maps_url": "https://www.google.com/maps/search/?api=1&query=Chocolate+artesanal+Tena",
       "contact_whatsapp": "+593999300004",
       "tiktok_url": "https://www.tiktok.com/@culturalroutes/video/700000044",
-      "tags": ["cacao", "lluvia_ok", "compra_local", "autentico"]
+      "tags": [
+        "cacao",
+        "lluvia_ok",
+        "compra_local",
+        "autentico"
+      ]
     },
     {
       "id": "l_045",
@@ -630,7 +817,12 @@
       "maps_url": "https://www.google.com/maps/search/?api=1&query=Guayusa+Tena",
       "contact_whatsapp": "+593999300005",
       "tiktok_url": "https://www.tiktok.com/@culturalroutes/video/700000045",
-      "tags": ["barato", "cultura", "autentico", "compra_local"]
+      "tags": [
+        "barato",
+        "cultura",
+        "autentico",
+        "compra_local"
+      ]
     },
     {
       "id": "l_046",
@@ -644,7 +836,11 @@
       "maps_url": "https://www.google.com/maps/search/?api=1&query=Pescado+de+rio+Tena",
       "contact_whatsapp": "+593999300006",
       "tiktok_url": "https://www.tiktok.com/@culturalroutes/video/700000046",
-      "tags": ["compra_local", "amazonia", "familias"]
+      "tags": [
+        "compra_local",
+        "amazonia",
+        "familias"
+      ]
     },
     {
       "id": "l_047",
@@ -658,7 +854,11 @@
       "maps_url": "https://www.google.com/maps/search/?api=1&query=Helado+frutas+Tena",
       "contact_whatsapp": "+593999300007",
       "tiktok_url": "https://www.tiktok.com/@culturalroutes/video/700000047",
-      "tags": ["barato", "familias", "compra_local"]
+      "tags": [
+        "barato",
+        "familias",
+        "compra_local"
+      ]
     },
     {
       "id": "l_048",
@@ -672,7 +872,12 @@
       "maps_url": "https://www.google.com/maps/search/?api=1&query=Mercado+Tena",
       "contact_whatsapp": "+593999300008",
       "tiktok_url": "https://www.tiktok.com/@culturalroutes/video/700000048",
-      "tags": ["compra_local", "autentico", "cultura", "familias"]
+      "tags": [
+        "compra_local",
+        "autentico",
+        "cultura",
+        "familias"
+      ]
     },
     {
       "id": "l_049",
@@ -686,7 +891,11 @@
       "maps_url": "https://www.google.com/maps/search/?api=1&query=Casa+de+la+Cultura+Tena",
       "contact_whatsapp": "+593999300009",
       "tiktok_url": "https://www.tiktok.com/@culturalroutes/video/700000049",
-      "tags": ["gratis", "lluvia_ok", "cultura"]
+      "tags": [
+        "gratis",
+        "lluvia_ok",
+        "cultura"
+      ]
     },
     {
       "id": "l_050",
@@ -700,7 +909,12 @@
       "maps_url": "https://www.google.com/maps/search/?api=1&query=Comunidad+Kichwa+Tena",
       "contact_whatsapp": "+593999300010",
       "tiktok_url": "https://www.tiktok.com/@culturalroutes/video/700000050",
-      "tags": ["comunidad", "autentico", "sostenible", "guia"]
+      "tags": [
+        "comunidad",
+        "autentico",
+        "sostenible",
+        "guia"
+      ]
     },
     {
       "id": "l_051",
@@ -714,7 +928,12 @@
       "maps_url": "https://www.google.com/maps/search/?api=1&query=Taller+ceramica+Tena",
       "contact_whatsapp": "+593999300011",
       "tiktok_url": "https://www.tiktok.com/@culturalroutes/video/700000051",
-      "tags": ["taller", "lluvia_ok", "compra_local", "cultura"]
+      "tags": [
+        "taller",
+        "lluvia_ok",
+        "compra_local",
+        "cultura"
+      ]
     },
     {
       "id": "l_052",
@@ -728,7 +947,12 @@
       "maps_url": "https://www.google.com/maps/search/?api=1&query=Ritual+guayusa+Tena",
       "contact_whatsapp": "+593999300012",
       "tiktok_url": "https://www.tiktok.com/@culturalroutes/video/700000052",
-      "tags": ["cultura", "autentico", "sostenible", "comunidad"]
+      "tags": [
+        "cultura",
+        "autentico",
+        "sostenible",
+        "comunidad"
+      ]
     },
     {
       "id": "l_053",
@@ -742,7 +966,11 @@
       "maps_url": "https://www.google.com/maps/search/?api=1&query=Centro+Cultural+Tena",
       "contact_whatsapp": "+593999300013",
       "tiktok_url": "https://www.tiktok.com/@culturalroutes/video/700000053",
-      "tags": ["cultura", "lluvia_ok", "historia"]
+      "tags": [
+        "cultura",
+        "lluvia_ok",
+        "historia"
+      ]
     },
     {
       "id": "l_054",
@@ -756,7 +984,12 @@
       "maps_url": "https://www.google.com/maps/search/?api=1&query=Parque+Amazonico+Tena",
       "contact_whatsapp": "+593999300014",
       "tiktok_url": "https://www.tiktok.com/@culturalroutes/video/700000054",
-      "tags": ["gratis", "naturaleza", "familias", "sostenible"]
+      "tags": [
+        "gratis",
+        "naturaleza",
+        "familias",
+        "sostenible"
+      ]
     },
     {
       "id": "l_055",
@@ -770,7 +1003,11 @@
       "maps_url": "https://www.google.com/maps/search/?api=1&query=Parque+Lineal+Tena",
       "contact_whatsapp": "+593999300015",
       "tiktok_url": "https://www.tiktok.com/@culturalroutes/video/700000055",
-      "tags": ["gratis", "familias", "naturaleza"]
+      "tags": [
+        "gratis",
+        "familias",
+        "naturaleza"
+      ]
     },
     {
       "id": "l_056",
@@ -784,7 +1021,11 @@
       "maps_url": "https://www.google.com/maps/search/?api=1&query=Chambira+artesanias+Tena",
       "contact_whatsapp": "+593999300016",
       "tiktok_url": "https://www.tiktok.com/@culturalroutes/video/700000056",
-      "tags": ["compra_local", "sostenible", "autentico"]
+      "tags": [
+        "compra_local",
+        "sostenible",
+        "autentico"
+      ]
     },
     {
       "id": "l_057",
@@ -798,7 +1039,11 @@
       "maps_url": "https://www.google.com/maps/search/?api=1&query=Tallado+madera+Tena",
       "contact_whatsapp": "+593999300017",
       "tiktok_url": "https://www.tiktok.com/@culturalroutes/video/700000057",
-      "tags": ["compra_local", "autentico", "regalo"]
+      "tags": [
+        "compra_local",
+        "autentico",
+        "regalo"
+      ]
     },
     {
       "id": "l_058",
@@ -812,7 +1057,12 @@
       "maps_url": "https://www.google.com/maps/search/?api=1&query=Achiote+taller+Tena",
       "contact_whatsapp": "+593999300018",
       "tiktok_url": "https://www.tiktok.com/@culturalroutes/video/700000058",
-      "tags": ["taller", "familias", "lluvia_ok", "cultura"]
+      "tags": [
+        "taller",
+        "familias",
+        "lluvia_ok",
+        "cultura"
+      ]
     },
     {
       "id": "l_059",
@@ -826,7 +1076,12 @@
       "maps_url": "https://www.google.com/maps/search/?api=1&query=Bisuteria+semillas+Misahualli",
       "contact_whatsapp": "+593999300019",
       "tiktok_url": "https://www.tiktok.com/@culturalroutes/video/700000059",
-      "tags": ["barato", "compra_local", "sostenible", "autentico"]
+      "tags": [
+        "barato",
+        "compra_local",
+        "sostenible",
+        "autentico"
+      ]
     },
     {
       "id": "l_060",
@@ -840,8 +1095,105 @@
       "maps_url": "https://www.google.com/maps/search/?api=1&query=Artesanias+fibras+Tena",
       "contact_whatsapp": "+593999300020",
       "tiktok_url": "https://www.tiktok.com/@culturalroutes/video/700000060",
-      "tags": ["compra_local", "sostenible", "autentico", "familias"]
+      "tags": [
+        "compra_local",
+        "sostenible",
+        "autentico",
+        "familias"
+      ]
+    },
+    {
+      "id": "l_1768754887621_5407",
+      "route": "Ruta Spondylus / Montañita",
+      "category": "historico",
+      "title": "Catedral PEPE",
+      "short_desc": "Catedral en honor al señor Pepe Torres",
+      "price_usd": 0.0,
+      "duration_min": 60,
+      "address": "A. Amazonas",
+      "maps_url": "https://maps.app.goo.gl/BJjixrk2JQyNByme8",
+      "contact_whatsapp": "986253627",
+      "tiktok_url": "https://www.tiktok.com/@araykliss/video/7580202255786298632?_t=ZM-93BARm73iLk&_r=1",
+      "tags": [
+        "Artesanias tambien se vende"
+      ],
+      "owner_user_id": "u_1768741631267_1327",
+      "created_at": 1768754887
     }
   ],
-  "bookings": []
+  "bookings": [],
+  "users": [
+    {
+      "id": "u_1768694459899_9661",
+      "email": "pepito1@gmail.com",
+      "password_hash": "$pbkdf2-sha256$29000$I4SQkjLGeI8xRuhdKyVkTA$iCsHCWIb1iGnosvLW9.sBAfT7bUbtNjhjpOdp7uDsKQ",
+      "role": "merchant"
+    },
+    {
+      "id": "u_1768699735698_9858",
+      "email": "pedro@gmail.com",
+      "password_hash": "$pbkdf2-sha256$29000$UwpBqLU2xlhLCYEwRkjpnQ$j/fHhU/HKneHHqz0Eqzlifh4hqzCddGRJrqY56acBrU",
+      "role": "merchant"
+    },
+    {
+      "id": "u_1768710777383_9762",
+      "role": "tourist",
+      "full_name": "Pedro Pascal",
+      "email": "pedropascal@gmail.com",
+      "phone": "0912736452",
+      "country": "Ecuador",
+      "password_hash": "$pbkdf2-sha256$29000$3huDkDJmbO09x1jrfe/9Pw$cfFd8geBpKLZBUq2z6sEFXKhNfc6fp77tG6lcgAPv7A"
+    },
+    {
+      "id": "u_1768740705528_5433",
+      "role": "tourist",
+      "full_name": "ALAN JOSUE ESPINOZA ZAMBRANO",
+      "email": "aezpinoza@gmail.com",
+      "phone": "0990176847",
+      "country": "Ecuador",
+      "password_hash": "$pbkdf2-sha256$29000$vXdOCSFEaI3x/v./NyZEKA$cIDsrA1L/m6OndA2/qD6jIQ2StU9jq238sGQ50eXOXk",
+      "created_at": 1768740705
+    },
+    {
+      "id": "u_1768741631267_1327",
+      "role": "merchant",
+      "full_name": "Ruth Estefania Garcia Castro",
+      "email": "rgarciac4@unemi.edu.ec",
+      "phone": "+593989035524",
+      "country": "",
+      "password_hash": "$pbkdf2-sha256$29000$ec.Z01prbe09h1BqTSnFmA$9Jb5J9Py3TNv5ee4Gcf9xxqMI6Jh0KRB5SZxsncRLi4",
+      "created_at": 1768741631
+    }
+  ],
+  "businesses": [
+    {
+      "id": "biz_1768694584620_7003",
+      "owner_user_id": "u_1768694459899_9661",
+      "name": "Taller de Artesanias don Pepe",
+      "route": "Ruta Spondylus / Montañita",
+      "description": "ofrecemos culturas",
+      "address": "calle 123",
+      "whatsapp": "",
+      "tiktok_url": "",
+      "maps_url": "",
+      "lat": 0.6677476449443736,
+      "lng": -79.5392574827889,
+      "status": "active"
+    },
+    {
+      "id": "biz_1768741820143_9579",
+      "owner_user_id": "u_1768741631267_1327",
+      "name": "Stefania Garcia",
+      "route": "Cuenca",
+      "description": "Artesanias variadas",
+      "address": "A. Amazonas",
+      "phone_whatsapp": "+593989035524",
+      "maps_url": "https://maps.app.goo.gl/BJjixrk2JQyNByme8",
+      "tiktok_url": "https://www.tiktok.com/@araykliss/video/7580202255786298632?_t=ZM-93BARm73iLk&_r=1",
+      "lat": -1.208864,
+      "lng": -78.119061,
+      "status": "active",
+      "updated_at": 1768755368
+    }
+  ]
 }

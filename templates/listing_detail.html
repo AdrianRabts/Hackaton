@@ -12,13 +12,16 @@
 
   <div class="flex gap-2 flex-wrap">
     <a href="/listings" class="px-3 py-2 rounded-lg bg-white border hover:bg-slate-100">Volver</a>
-    <a href="/listings/{{ listing.id }}/edit" class="px-3 py-2 rounded-lg bg-white border hover:bg-slate-100">Editar</a>
 
-    <form method="post" action="/listings/{{ listing.id }}/delete" onsubmit="return confirm('¿Eliminar este lugar?');">
-      <button class="px-3 py-2 rounded-lg bg-white border text-red-700 hover:bg-red-50">
-        Eliminar
-      </button>
-    </form>
+    {% if can_manage %}
+      <a href="/listings/{{ listing.id }}/edit" class="px-3 py-2 rounded-lg bg-white border hover:bg-slate-100">Editar</a>
+
+      <form method="post" action="/listings/{{ listing.id }}/delete" onsubmit="return confirm('¿Eliminar este lugar?');">
+        <button class="px-3 py-2 rounded-lg bg-white border text-red-700 hover:bg-red-50">
+          Eliminar
+        </button>
+      </form>
+    {% endif %}
   </div>
 </div>
 
@@ -90,30 +93,42 @@
 
   <!-- CTA -->
   <div class="bg-white border rounded-2xl p-6">
-    <div class="text-sm text-slate-600">Siguiente paso</div>
-    <div class="text-xl font-bold mt-1">Reserva con PayPal</div>
-    <p class="text-slate-700 mt-2">
-      Confirma tu experiencia y apoya el emprendimiento local.
-    </p>
+    {% if user and user.role == "tourist" %}
+      <div class="text-sm text-slate-600">Siguiente paso</div>
+      <div class="text-xl font-bold mt-1">Reserva con PayPal</div>
+      <p class="text-slate-700 mt-2">
+        Confirma tu experiencia y apoya el emprendimiento local.
+      </p>
 
-    <div class="mt-4 p-4 rounded-xl bg-slate-50 border">
-      <div class="flex items-center justify-between">
-        <div class="text-sm text-slate-600">Total</div>
-        <div class="text-lg font-bold">${{ "%.2f"|format(listing.price_usd) }}</div>
+      <div class="mt-4 p-4 rounded-xl bg-slate-50 border">
+        <div class="flex items-center justify-between">
+          <div class="text-sm text-slate-600">Total</div>
+          <div class="text-lg font-bold">${{ "%.2f"|format(listing.price_usd) }}</div>
+        </div>
+        <div class="text-xs text-slate-500 mt-1">
+          Precio por actividad/experiencia. Transporte no incluido (MVP).
+        </div>
       </div>
-      <div class="text-xs text-slate-500 mt-1">
-        Precio por actividad/experiencia. Transporte no incluido (MVP).
+
+      <a href="/listings/{{ listing.id }}/book"
+         class="mt-4 block text-center px-4 py-2 rounded-lg bg-slate-900 text-white hover:bg-slate-800">
+        Ir a Checkout
+      </a>
+
+      <div class="mt-4 text-xs text-slate-500">
+        Consejo: grupos pequeños, compra local, respeto cultural. Eso es sostenibilidad real.
       </div>
-    </div>
-
-    <a href="/listings/{{ listing.id }}/book"
-       class="mt-4 block text-center px-4 py-2 rounded-lg bg-slate-900 text-white hover:bg-slate-800">
-      Ir a Checkout
-    </a>
-
-    <div class="mt-4 text-xs text-slate-500">
-      Consejo: grupos pequeños, compra local, respeto cultural. Eso es sostenibilidad real.
-    </div>
+    {% else %}
+      <div class="text-sm text-slate-600">Modo comerciante</div>
+      <div class="text-xl font-bold mt-1">Gestiona tu lugar</div>
+      <p class="text-slate-700 mt-2">
+        Desde aquí revisas cómo se ve para turistas. Para editar, usa los botones de gestión.
+      </p>
+      <a href="/merchant/dashboard"
+         class="mt-4 block text-center px-4 py-2 rounded-lg bg-white border hover:bg-slate-100">
+        Ir al Dashboard
+      </a>
+    {% endif %}
   </div>
 </div>
 

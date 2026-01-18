@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="max-w-lg mx-auto">
+  <div class="bg-white border rounded-2xl p-6">
+    <h1 class="text-2xl font-bold">Registro Turista</h1>
+    <p class="text-slate-600 mt-1">Datos esenciales para tu perfil y reservas.</p>
+
+    {% if error %}
+      <div class="mt-4 p-3 rounded-lg bg-amber-50 border border-amber-200 text-amber-900 text-sm">{{ error }}</div>
+    {% endif %}
+
+    <form method="post" action="/auth/tourist/register" class="mt-5 grid gap-4">
+      <div>
+        <label class="text-sm text-slate-600">Nombre completo</label>
+        <input name="full_name" required class="w-full px-3 py-2 border rounded-lg" placeholder="Ej: Juan Pérez" />
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <div>
+          <label class="text-sm text-slate-600">Email</label>
+          <input name="email" type="email" required class="w-full px-3 py-2 border rounded-lg" placeholder="tu@email.com" />
+        </div>
+        <div>
+          <label class="text-sm text-slate-600">Teléfono</label>
+          <input name="phone" required class="w-full px-3 py-2 border rounded-lg" placeholder="+593 99 999 9999" />
+        </div>
+      </div>
+
+      <div>
+        <label class="text-sm text-slate-600">País</label>
+        <input name="country" required class="w-full px-3 py-2 border rounded-lg" placeholder="Ecuador" />
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <div>
+          <label class="text-sm text-slate-600">Contraseña</label>
+          <input name="password" type="password" minlength="8" required class="w-full px-3 py-2 border rounded-lg" placeholder="mín. 8 caracteres" />
+        </div>
+        <div>
+          <label class="text-sm text-slate-600">Confirmar contraseña</label>
+          <input name="confirm_password" type="password" minlength="8" required class="w-full px-3 py-2 border rounded-lg" />
+        </div>
+      </div>
+
+      <label class="flex items-start gap-2 text-sm text-slate-600">
+        <input name="consent" type="checkbox" required class="mt-1">
+        <span>
+          Acepto el tratamiento de mis datos para fines de reservas y soporte (MVP).
+        </span>
+      </label>
+
+      <button class="px-4 py-2 rounded-lg bg-slate-900 text-white hover:bg-slate-800">Crear cuenta</button>
+
+      <div class="text-sm text-slate-600">
+        ¿Ya tienes cuenta? <a href="/auth/tourist/login" class="font-semibold underline">Inicia sesión</a>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

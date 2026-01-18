@@ -2,55 +2,236 @@
 <html lang="es">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>{% block title %}EquaPass{% endblock %}</title>
+  <link rel="icon" href="/static/equapass-logo.png" />
+
+  <!-- Tailwind CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
 
-  <!-- Evita el 404 del favicon en dev -->
-  <link rel="icon" href="data:,">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          boxShadow: {
+            soft: "0 10px 30px rgba(2,6,23,0.10)",
+            glow: "0 16px 40px rgba(31,107,154,0.18)"
+          }
+        }
+      }
+    }
+  </script>
 
-  <title>{{ title if title else "Cultural Routes" }}</title>
+  <style>
+    /* =====================================================
+      E Q U A P A S S  B R A N D  (colorido + pro)
+      Logo ahora es monocromo -> color lo ponemos en UI
+    ====================================================== */
+    :root{
+      --ep-ink:    #0f172a;
+      --ep-muted:  #475569;
+
+      /* Azul / Amarillo marca */
+      --ep-blue:   #1f6b9a;
+      --ep-blue2:  #2d83c7;
+      --ep-blueD:  #124a6c;
+
+      --ep-yellow:  #e3b444;
+      --ep-yellow2: #f6c755;
+
+      --ep-bg:     #f6f9fc;
+      --ep-card:   #ffffff;
+      --ep-border: #e2e8f0;
+
+      --ep-radius: 18px;
+    }
+
+    /* Fondo más colorido pero elegante (no circo) */
+    body.bg-slate-50{
+      background:
+        radial-gradient(900px 520px at 12% 0%, rgba(31,107,154,0.22), transparent 58%),
+        radial-gradient(780px 520px at 88% 18%, rgba(227,180,68,0.22), transparent 55%),
+        radial-gradient(620px 420px at 50% 105%, rgba(45,131,199,0.10), transparent 62%),
+        var(--ep-bg) !important;
+    }
+
+    /* Neutrales */
+    .text-slate-900{ color: var(--ep-ink) !important; }
+    .text-slate-600{ color: var(--ep-muted) !important; }
+    .text-slate-500{ color: rgba(71,85,105,0.95) !important; }
+    .border{ border-color: var(--ep-border) !important; }
+
+    /* === Botón primario (antes slate oscuro) -> Azul marca === */
+    .bg-slate-900{
+      background: linear-gradient(135deg, var(--ep-blue), var(--ep-blueD)) !important;
+    }
+    .hover\:bg-slate-800:hover{
+      background: linear-gradient(135deg, var(--ep-blueD), #0e3a56) !important;
+    }
+    .border-slate-900{ border-color: rgba(18,74,108,0.9) !important; }
+
+    /* === Merchant (antes emerald) -> Azul brillante (consistente con marca) === */
+    .bg-emerald-700{
+      background: linear-gradient(135deg, var(--ep-blue2), var(--ep-blue)) !important;
+    }
+    .hover\:bg-emerald-800:hover{
+      background: linear-gradient(135deg, var(--ep-blue), var(--ep-blueD)) !important;
+    }
+    .bg-emerald-600{ background-color: var(--ep-blue) !important; }
+    .hover\:bg-emerald-700:hover{ background-color: var(--ep-blueD) !important; }
+
+    /* === Alertas (antes amber) -> Amarillo marca === */
+    .bg-amber-50{ background-color: rgba(227,180,68,0.18) !important; }
+    .border-amber-200{ border-color: rgba(227,180,68,0.35) !important; }
+    .text-amber-900{ color: #5a3f0d !important; }
+
+    /* Focus ring azul suave */
+    .focus\:ring-slate-200:focus{ --tw-ring-color: rgba(31,107,154,0.28) !important; }
+    .ring-slate-200{ --tw-ring-color: rgba(31,107,154,0.28) !important; }
+
+    /* line-clamp fallback */
+    .line-clamp-3{
+      display:-webkit-box;
+      -webkit-line-clamp:3;
+      -webkit-box-orient:vertical;
+      overflow:hidden;
+    }
+
+    /* =====================================================
+      Logo: monocromo + marco con color (pro)
+    ====================================================== */
+    .ep-logo-ring{
+      width: 48px; height: 48px;
+      border-radius: 16px;
+      padding: 2px;
+      background: linear-gradient(135deg, rgba(45,131,199,1), rgba(227,180,68,1));
+      box-shadow: 0 18px 45px rgba(2,6,23,0.10);
+      display:flex; align-items:center; justify-content:center;
+    }
+    .ep-logo-wrap{
+      width: 44px; height: 44px;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.92);
+      border: 1px solid rgba(226,232,240,0.90);
+      display:flex; align-items:center; justify-content:center;
+      overflow:hidden;
+    }
+    .ep-logo{
+      width: 38px; height: 38px;
+      object-fit: contain;
+      display:block;
+      filter: contrast(1.05);
+    }
+
+    /* =====================================================
+      Tarjetas un poquito más "premium"
+    ====================================================== */
+    .rounded-2xl{ border-radius: var(--ep-radius) !important; }
+    .bg-white{ background-color: var(--ep-card) !important; }
+
+    /* Borde suave con hint de color (solo visual, no rompe layouts) */
+    .ep-card-accent{
+      position: relative;
+    }
+    .ep-card-accent:before{
+      content:"";
+      position:absolute;
+      inset:-1px;
+      border-radius: calc(var(--ep-radius) + 1px);
+      background: linear-gradient(135deg, rgba(45,131,199,0.18), rgba(227,180,68,0.18));
+      z-index:-1;
+    }
+
+    /* Activo en nav (más visible) */
+    .ep-active{
+      background: linear-gradient(135deg, rgba(31,107,154,0.10), rgba(227,180,68,0.10)) !important;
+      border-color: rgba(31,107,154,0.20) !important;
+    }
+  </style>
+
+  <script defer src="/static/app.js"></script>
+
+  {% block extra_head %}{% endblock %}
+  {% block head %}{% endblock %}
 </head>
 
 <body class="bg-slate-50 text-slate-900">
-  <nav class="bg-white border-b sticky top-0 z-50">
-    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
-      <a href="/listings" class="flex items-center gap-2">
-        <div class="w-9 h-9 rounded-xl bg-slate-900 text-white grid place-items-center font-bold">CR</div>
-        <div>
-          <div class="font-bold leading-4">Cultural Routes</div>
-          <div class="text-xs text-slate-500">Itinerarios culturales sostenibles</div>
+  {% set path = request.url.path %}
+
+  <!-- Topbar -->
+  <header class="sticky top-0 z-50 bg-white/78 backdrop-blur border-b">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between gap-3">
+
+      <a href="{{ '/listings' if user else '/start' }}" class="flex items-center gap-3 group">
+        <div class="ep-logo-ring">
+          <div class="ep-logo-wrap">
+            <img src="/static/equapass-logo.png" alt="EquaPass" class="ep-logo" />
+          </div>
+        </div>
+
+        <div class="leading-tight">
+          <div class="font-semibold group-hover:underline">EquaPass</div>
+          <div class="text-xs text-slate-500">Turismo cultural, con ruta y con estilo.</div>
         </div>
       </a>
 
-      <div class="flex items-center gap-2">
-        <a href="/listings"
-           class="px-3 py-2 rounded-lg bg-white border hover:bg-slate-100">
-          Explorar
-        </a>
+      {% if nav_mode == "auth" %}
+        <div class="text-xs text-slate-500">Acceso</div>
+      {% else %}
+        {% macro navbtn(href, label, primary=false) -%}
+          {%- set active = (path == href) or (href != '/' and path.startswith(href ~ '/')) -%}
+          <a href="{{ href }}"
+             class="px-3 py-2 rounded-lg text-sm border transition
+                    {% if primary %} bg-slate-900 text-white hover:bg-slate-800 border-slate-900 shadow-soft
+                    {% else %} bg-white hover:bg-slate-100
+                    {% endif %}
+                    {% if active and not primary %} ep-active {% endif %}">
+            {{ label }}
+          </a>
+        {%- endmacro %}
 
-        <a href="/assistant"
-           class="px-3 py-2 rounded-lg bg-white border hover:bg-slate-100">
-          Asistente
-        </a>
+        <nav class="flex items-center gap-2 flex-wrap">
+          {% if user %}
+            {{ navbtn('/listings', 'Explorar') }}
+            {{ navbtn('/map', 'Mapa') }}
+            {{ navbtn('/assistant', 'Asistente') }}
 
-        <a href="/listings/new"
-           class="px-3 py-2 rounded-lg bg-slate-900 text-white hover:bg-slate-800">
-          Nuevo lugar
-        </a>
-      </div>
+            {% if user.role == 'merchant' %}
+              {{ navbtn('/merchant/dashboard', 'Dashboard') }}
+              {{ navbtn('/listings/new', 'Nuevo lugar', true) }}
+            {% endif %}
+
+            {{ navbtn('/auth/logout', 'Salir') }}
+          {% else %}
+            {{ navbtn('/start', 'Ingresar', true) }}
+          {% endif %}
+        </nav>
+      {% endif %}
     </div>
-  </nav>
+  </header>
 
+  <!-- Main -->
   <main class="max-w-6xl mx-auto px-4 py-6">
+    {% if flash %}
+      <div class="mb-4 rounded-2xl border p-4 bg-amber-50 border-amber-200 text-amber-900 ep-card-accent">
+        <div class="font-semibold">{{ flash.title|default("Aviso", true) }}</div>
+        <div class="text-sm mt-1">{{ flash.message|default("", true) }}</div>
+      </div>
+    {% endif %}
+
     {% block content %}{% endblock %}
   </main>
 
-  <footer class="max-w-6xl mx-auto px-4 pb-10">
-    <div class="text-xs text-slate-500">
-      MVP Hackathon · Datos en JSON · FastAPI + Tailwind
+  <!-- Footer -->
+  <footer class="border-t bg-white/78 backdrop-blur">
+    <div class="max-w-6xl mx-auto px-4 py-6 text-xs text-slate-500 flex items-start justify-between gap-3 flex-wrap">
+      <div>© {{ 2026 }} · EquaPass · Ecuador primero, siempre.</div>
+      <div>Hecho para hackathon: rápido, claro y con branding serio.</div>
     </div>
   </footer>
 
-  <script src="/static/app.js"></script>
+  {% block extra_scripts %}{% endblock %}
+  {% block scripts %}{% endblock %}
 </body>
 </html>

@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block extra_head %}
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+{% endblock %}
+
+{% block content %}
+<div class="flex items-start justify-between gap-4 flex-wrap">
+  <div>
+    <h1 class="text-2xl font-bold">Mapa</h1>
+    <p class="text-slate-600">Negocios registrados por comerciantes (con pin real). Filtra por ruta.</p>
+  </div>
+
+  <div class="flex gap-2 items-end flex-wrap">
+    <div>
+      <label class="text-sm text-slate-600">Ruta</label>
+      <select id="routeSelect" class="px-3 py-2 border rounded-lg bg-white">
+        <option value="">Todas</option>
+        {% for r in routes %}
+          <option value="{{ r }}" {% if selected_route == r %}selected{% endif %}>{{ r }}</option>
+        {% endfor %}
+      </select>
+    </div>
+  </div>
+</div>
+
+<div class="mt-3 text-sm text-slate-600">
+  Mostrando: <span class="font-semibold">{{ selected_route if selected_route else "Todas" }}</span>
+  · Negocios: <span class="font-semibold">{{ markers_count }}</span>
+</div>
+
+<div class="mt-6 bg-white border rounded-2xl p-4">
+  <div id="publicMap" class="rounded-xl border" style="height: 520px;"></div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="/static/map.js"></script>
+<script>
+  window.addEventListener("DOMContentLoaded", () => {
+    const markers = {{ markers_json | safe }};
+    const path = {{ path_json | safe }};
+
+    const sel = document.getElementById("routeSelect");
+    if (sel) {
+      sel.addEventListener("change", () => {
+        const v = sel.value || "";
+        const url = v ? `/map?route=${encodeURIComponent(v)}` : "/map";
+        window.location.href = url;
+      });
+    }
+
+    window.CRMaps.initPublicMap({
+      mapId: "publicMap",
+      markers,
+      path
+    });
+  });
+</script>
+{% endblock %}

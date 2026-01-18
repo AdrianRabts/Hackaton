@@ -4,12 +4,17 @@
 <div class="flex items-start justify-between gap-4 flex-wrap">
   <div>
     <h1 class="text-2xl font-bold">Explorar lugares</h1>
-    <p class="text-slate-600">Oferta cultural curada: comida, historia, parques y artesanías. Sin perderse en “info suelta”.</p>
+    <p class="text-slate-600">
+      Oferta cultural curada: comida, historia, parques y artesanías. Sin perderse en “info suelta”.
+    </p>
   </div>
 
   <div class="flex gap-2 flex-wrap">
     <a href="/assistant" class="px-3 py-2 rounded-lg bg-white border hover:bg-slate-100">Asistente</a>
-    <a href="/listings/new" class="px-3 py-2 rounded-lg bg-slate-900 text-white hover:bg-slate-800">Nuevo lugar</a>
+
+    {% if user and user.role == "merchant" %}
+      <a href="/listings/new" class="px-3 py-2 rounded-lg bg-slate-900 text-white hover:bg-slate-800">Nuevo lugar</a>
+    {% endif %}
   </div>
 </div>
 
@@ -60,8 +65,7 @@
   <a href="/listings/{{ l.id }}" class="block bg-white border rounded-2xl p-5 hover:shadow-sm transition">
     <div class="flex items-start justify-between gap-3">
       <div class="text-xs text-slate-500">
-        {{ l.route }}
-        · <span class="capitalize">{{ l.category }}</span>
+        {{ l.route }} · <span class="capitalize">{{ l.category }}</span>
       </div>
       <div class="text-sm font-bold">${{ "%.2f"|format(l.price_usd) }}</div>
     </div>
@@ -107,7 +111,10 @@
   <p class="text-slate-600 mt-2">Cambia filtros o limpia la búsqueda.</p>
   <div class="mt-4 flex gap-2 justify-center">
     <a href="/listings" class="px-4 py-2 rounded-lg bg-white border hover:bg-slate-100">Limpiar</a>
-    <a href="/listings/new" class="px-4 py-2 rounded-lg bg-slate-900 text-white hover:bg-slate-800">Crear lugar</a>
+
+    {% if user and user.role == "merchant" %}
+      <a href="/listings/new" class="px-4 py-2 rounded-lg bg-slate-900 text-white hover:bg-slate-800">Crear lugar</a>
+    {% endif %}
   </div>
 </div>
 {% endif %}

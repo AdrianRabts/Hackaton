@@ -7,7 +7,12 @@ from pathlib import Path
 
 DB_PATH = Path("data/db.json")
 
-DEFAULT_DB: Dict[str, Any] = {"listings": [], "bookings": []}
+DEFAULT_DB: Dict[str, Any] = {
+    "listings": [],
+    "bookings": [],
+    "users": [],
+    "businesses": [],
+}
 
 
 class JsonStore:
@@ -18,27 +23,28 @@ class JsonStore:
             self._atomic_write(DEFAULT_DB)
 
     def read(self) -> Dict[str, Any]:
-        """Lee la DB. Si el JSON está corrupto/vacío, lo re-crea."""
         try:
             with self.path.open("r", encoding="utf-8") as f:
                 data = json.load(f)
             if not isinstance(data, dict):
                 raise ValueError("DB JSON no es dict")
-            # Asegura llaves mínimas
+
             data.setdefault("listings", [])
             data.setdefault("bookings", [])
+            data.setdefault("users", [])
+            data.setdefault("businesses", [])
             return data
         except Exception:
-            # Fallback: recrea DB mínima (hackathon > llorar)
             self._atomic_write(DEFAULT_DB)
-            return {"listings": [], "bookings": []}
+            return dict(DEFAULT_DB)
 
     def write(self, data: Dict[str, Any]) -> None:
-        # Asegura estructura mínima antes de guardar
         if not isinstance(data, dict):
             raise ValueError("data debe ser dict")
         data.setdefault("listings", [])
         data.setdefault("bookings", [])
+        data.setdefault("users", [])
+        data.setdefault("businesses", [])
         self._atomic_write(data)
 
     def _atomic_write(self, data: Dict[str, Any]) -> None:
@@ -49,17 +55,52 @@ class JsonStore:
 
 
 def new_id(prefix: str) -> str:
-    # Más único que solo time (evita choques en el mismo ms)
     return f"{prefix}_{int(time.time() * 1000)}_{random.randint(1000, 9999)}"
 
 
-# Helpers CRUD (para mantener main.py limpio)
+def normalize_email(email: str) -> str:
+    return (email or "").strip().lower()
+
 
 def find_by_id(items: list[dict], item_id: str) -> Optional[dict]:
     return next((x for x in items if x.get("id") == item_id), None)
+
 
 def find_index_by_id(items: list[dict], item_id: str) -> Optional[int]:
     for i, x in enumerate(items):
         if x.get("id") == item_id:
             return i
     return None
+
+
+def find_user_by_email(users: list[dict], email: str) -> Optional[dict]:
+    e = normalize_email(email)
+    return next((u for u in users if normalize_email(u.get("email", "")) == e), None)
+
+
+def find_user_by_id(users: list[dict], user_id: str) -> Optional[dict]:
+    return next((u for u in users if u.get("id") == user_id), None)
+
+
+def find_user_by_email_and_role(users: list[dict], email: str, role: str) -> Optional[dict]:
+    e = normalize_email(email)
+    r = (role or "").strip().lower()
+    return next(
+        (u for u in users
+         if normalize_email(u.get("email", "")) == e and (u.get("role", "") or "").strip().lower() == r),
+        None,
+    )
+
+
+def email_exists_with_other_role(users: list[dict], email: str, role: str) -> Optional[dict]:
+    e = normalize_email(email)
+    r = (role or "").strip().lower()
+    return next(
+        (u for u in users
+         if normalize_email(u.get("email", "")) == e and (u.get("role", "") or "").strip().lower() != r),
+        None,
+    )
+
+
+def find_business_by_owner(businesses: list[dict], owner_user_id: str) -> Optional[dict]:
+    return next((b for b in businesses if b.get("owner_user_id") == owner_user_id), None)

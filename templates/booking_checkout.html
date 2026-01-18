@@ -59,24 +59,17 @@
   <div class="bg-white border rounded-2xl p-6">
     <h2 class="text-lg font-bold">Pagar con PayPal</h2>
     <p class="text-sm text-slate-600 mt-1">
-      Completa tus datos y confirma el pago.
+      Confirmación rápida con tu sesión iniciada.
     </p>
 
-    <div class="grid gap-3 mt-4">
-      <div>
-        <label class="text-sm text-slate-600">Nombre</label>
-        <input id="buyer_name" type="text" placeholder="Tu nombre"
-               class="w-full px-3 py-2 border rounded-lg" />
-      </div>
-
-      <div>
-        <label class="text-sm text-slate-600">Email</label>
-        <input id="buyer_email" type="email" placeholder="tu@email.com"
-               class="w-full px-3 py-2 border rounded-lg" />
-      </div>
+    <div class="mt-4 p-4 rounded-xl bg-slate-50 border">
+      <div class="text-xs text-slate-500">Comprador</div>
+      <div class="font-semibold">{{ user.full_name if user else "Usuario" }}</div>
+      <div class="text-sm text-slate-600">{{ user.email if user else "" }}</div>
     </div>
 
     <div id="errorBox" class="hidden mt-4 p-3 rounded-xl border bg-red-50 text-red-800 text-sm"></div>
+    <div id="successBox" class="hidden mt-4 p-3 rounded-xl border bg-emerald-50 text-emerald-800 text-sm"></div>
 
     <div class="mt-5">
       <div id="paypal-button-container"></div>
@@ -85,14 +78,11 @@
         Este es un MVP para hackathon.
       </div>
     </div>
-
-    <div id="successBox" class="hidden mt-4 p-3 rounded-xl border bg-emerald-50 text-emerald-800 text-sm"></div>
   </div>
 </div>
 
 <script>
   const LISTING_ID = "{{ listing.id }}";
-  const PRICE = Number("{{ '%.2f'|format(listing.price_usd) }}");
   const paypalClientId = "{{ paypal_client_id }}";
 
   const errorBox = document.getElementById("errorBox");
@@ -113,6 +103,7 @@
   } else {
     const script = document.createElement("script");
     script.src = `https://www.paypal.com/sdk/js?client-id=${paypalClientId}&currency=USD&intent=capture`;
+
     script.onload = () => {
       if (!window.paypal) {
         showError("No se pudo cargar PayPal SDK.");
@@ -138,17 +129,12 @@
 
         onApprove: async function(data) {
           try {
-            const buyer_name = document.getElementById("buyer_name").value || "Guest";
-            const buyer_email = document.getElementById("buyer_email").value || "guest@example.com";
-
             const res = await fetch("/api/paypal/capture-order", {
               method: "POST",
               headers: {"Content-Type": "application/json"},
               body: JSON.stringify({
                 listing_id: LISTING_ID,
-                order_id: data.orderID,
-                buyer_name,
-                buyer_email
+                order_id: data.orderID
               })
             });
 
